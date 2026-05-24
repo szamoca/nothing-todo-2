@@ -1,4 +1,3 @@
-// import jwt from "jsonwebtoken";
 import { FetchError } from "ofetch";
 
 export default defineEventHandler(async (event) => {
