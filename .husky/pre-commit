@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+
+# Pre-commit hook: runs tests, linting, and formatting on staged files
+#
+# What runs:
+# - ESLint with auto-fix on JS/TS/Vue files
+# - Stylelint with auto-fix on CSS/SCSS/Vue files
+#
+# To bypass (emergencies only): git commit --no-verify
+
+
+# Run and lint-staged
+npx lint-staged

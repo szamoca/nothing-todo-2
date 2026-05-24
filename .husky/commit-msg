@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+
+
+# Commit message hook: validates conventional commit format
+#
+# Required format: <type>: <message>
+# Valid types: feat, fix, chore, refactor, style, docs, test, build, ci, perf, revert
+#
+# Examples:
+#   ✓ feat: Add example component
+#   ✓ fix: Resolve navigation bug
+#   ✗ Add example component (missing type)
+#
+# To bypass (emergencies only): git commit --no-verify
+
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+
+# Define valid conventional commit types
+valid_types="feat|fix|chore|refactor|style|docs|test|build|ci|perf|revert"
+
+
+# Check if commit message matches conventional commit format
+if ! echo "$commit_msg" | grep -qE "^($valid_types): .+"; then
+ echo "❌ ERROR: Commit message does not follow conventional commit format"
+ echo ""
+ echo "Required format: <type>: <message>"
+ echo ""
+ echo "Valid types:"
+ echo "  - feat:     New feature"
+ echo "  - fix:      Bug fix"
+ echo "  - chore:    Maintenance tasks"
+ echo "  - refactor: Code restructuring"
+ echo "  - style:    Code style changes"
+ echo "  - docs:     Documentation"
+ echo "  - test:     Test changes"
+ echo "  - build:    Build system changes"
+ echo "  - ci:       CI/CD changes"
+ echo "  - perf:     Performance improvements"
+ echo "  - revert:   Revert previous commit"
+ echo ""
+ echo "Your message: $commit_msg"
+ echo ""
+ echo "Example: feat: Add example component"
+ exit 1
+fi
+
+
+exit 0

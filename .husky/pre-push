@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+
+# Pre-push hook: runs tests to simulate pull request flow
+# Since I am going to commit to the main branch by myself
+#
+# What runs:
+# - Tests (npm test)
+#
+# To bypass (emergencies only): git commit --no-verify
+
+
+# Run tests and lint-staged
+npm test
