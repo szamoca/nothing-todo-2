@@ -6,6 +6,7 @@
   ],
   "rules": {
     "scss/at-extend-no-missing-placeholder": null,
-    "scss/load-no-partial-leading-underscore": null
+    "scss/load-no-partial-leading-underscore": null,
+    "at-rule-no-unknown": null
   }
 }
