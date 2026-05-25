@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { FetchError } from "ofetch";
+
 // Fetch random user credentials on page load
 const { data: randomUser } = await useFetch<User>("/api/users/random");
 
@@ -32,9 +34,10 @@ async function handleLogin() {
 
 		// Redirect to home page
 		await navigateTo("/");
-	} catch (error: unknown) {
+	} catch (error) {
 		// Display error message without refetching random user
-		errorMessage.value = error?.data?.message || $t("Login failed. Please check your credentials.");
+		const fetchError = error as FetchError;
+		errorMessage.value = fetchError?.data?.message || $t("Login failed. Please check your credentials.");
 	} finally {
 		isLoading.value = false;
 	}
