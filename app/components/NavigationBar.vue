@@ -1,44 +1,12 @@
 <script lang="ts" setup>
-const refreshKey = useState<number>("navbarRefreshKey", () => 0);
+const { user, logout, fetchUser } = useUser();
 
-const { data: user } = await useAsyncData("navbar-user", verifyAuthentication, {
-	watch: [refreshKey],
-});
-
-async function logout() {
-	useCookie("jwt_access_token").value = null;
-	refreshKey.value++;
-}
-
-async function verifyAuthentication() {
-	try {
-		const token = useCookie("jwt_access_token");
-
-		if (!token.value) {
-			return false;
-		}
-
-		const result = await $fetch("/api/auth/me", {
-			method: "GET",
-			headers: { Authorization: `Bearer ${token.value}` },
-		});
-
-		if (!result.id) {
-			return false;
-		}
-
-		return result;
-	} catch (e) {
-		console.warn(e);
-	}
-}
+// Ensure user is loaded on component mount
+await fetchUser();
 </script>
 
 <template>
-	<nav
-		class="navbar"
-		:key="refreshKey"
-	>
+	<nav class="navbar">
 		<NuxtLink to="/">{{ $t("NOTHING todo") }}</NuxtLink>
 
 		<ul class="flex-between gap-6">
