@@ -50,7 +50,7 @@ async function verifyAuthentication() {
         			<NuxtLink to="/todos/add">{{ $t("Create a New Todo") }}</NuxtLink>
         		</li>
         		<li>
-        			<button @click="logout" class="logout-btn">
+        			<button @click="logout" class="logout-btn auth-link">
         				{{ $t("Logout") }}
         			</button>
         		</li>
@@ -58,7 +58,7 @@ async function verifyAuthentication() {
         	</template>
         	<template v-else>
         		<li>
-        			<NuxtLink to="/login">{{ $t("Login") }}</NuxtLink>
+        			<NuxtLink to="/login" class="auth-link">{{ $t("Login") }}</NuxtLink>
         		</li>
         	</template>
         </ul>
@@ -69,10 +69,13 @@ async function verifyAuthentication() {
 @use '~/assets/styles/__mixins' as *;
 
 .navbar {
+	background-color: var(--espresso);
+	
 	a,
 	.logout-btn {
 		@include link-nav;
 		
+		color: var(--ghost-white);
 		background: none;
 		border: none;
 		padding: 0;
@@ -81,7 +84,7 @@ async function verifyAuthentication() {
 		font-family: inherit;
 	}
 	
-	.logout-btn {
+	.auth-link {
 		&:hover {
 			text-decoration-color: var(--burnt-peach);
 		}

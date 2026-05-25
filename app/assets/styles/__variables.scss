@@ -29,10 +29,10 @@
 	--ghost-white: hsl(300deg 100% 99%);
 	--ghost-white-dark: hsl(300deg 10% 94%);
 	
-	// Tertiary: Saddle Brown
-	--saddle-brown: hsl(18deg 49% 34%);
-	--saddle-brown-light: hsl(18deg 49% 54%);
-	--saddle-brown-dark: hsl(18deg 49% 24%);
+	// Tertiary: Espresso
+	--espresso: hsl(12deg 48% 20%);
+	--espresso-light: hsl(12deg 48% 40%);
+	--espresso-dark: hsl(12deg 48% 10%);
 	
 	// Error: Burnt Peach
 	--burnt-peach: hsl(14deg 85% 64%);
@@ -53,8 +53,8 @@
 	--color-text-muted: var(--jet-black-light);
 	--color-background: var(--ghost-white);
 	--color-surface: var(--ghost-white-dark);
-	--color-tertiary: var(--saddle-brown);
-	--color-tertiary-hover: var(--saddle-brown-dark);
+	--color-tertiary: var(--espresso);
+	--color-tertiary-hover: var(--espresso-dark);
 	--color-error: var(--burnt-peach);
 	--color-error-hover: var(--burnt-peach-dark);
 	--color-error-light: var(--burnt-peach-light);
