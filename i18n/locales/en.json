@@ -36,5 +36,8 @@
 	"Toggle Completion": "Toggle Completion",
 	"Toggling...": "Toggling...",
 	"Todo not found": "Todo not found",
-	"Delete": "Delete"
+	"Delete": "Delete",
+	"Toggle completion status for todo": "Toggle completion status for todo",
+	"Delete this todo": "Delete this todo",
+	"Deleting...": "Deleting..."
 }

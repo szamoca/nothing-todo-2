@@ -96,39 +96,14 @@ function isTodoPending(todoId: number): boolean {
 				v-else-if="hasLoaded && todos.length > 0"
 				class="todos-grid"
 			>
-				<article
+				<TodoCard
 					v-for="todo in todos"
 					:key="todo.id"
-					class="todo-tile"
-				>
-					<p
-						class="todo-text"
-						:class="{ 'todo-completed': todo.completed }"
-					>
-						{{ todo.todo }}
-					</p>
-
-					<div class="todo-actions">
-						<button
-							type="button"
-							:class="todo.completed ? 'btn-ghost' : 'btn-accent'"
-							:disabled="todosLoading || isTodoPending(todo.id)"
-							:aria-busy="isTodoPending(todo.id)"
-							@click="handleToggleTodo(todo.id)"
-						>
-							{{ isTodoPending(todo.id) ? $t("Toggling...") : $t("Toggle Completion") }}
-						</button>
-
-						<button
-							type="button"
-							class="btn-danger"
-							:disabled="todosLoading"
-							@click="handleDeleteTodo(todo.id)"
-						>
-							{{ $t("Delete") }}
-						</button>
-					</div>
-				</article>
+					:todo="todo"
+					:pending="isTodoPending(todo.id)"
+					@toggle="handleToggleTodo(todo.id)"
+					@delete="handleDeleteTodo(todo.id)"
+				/>
 			</div>
 		</div>
 	</div>
@@ -216,63 +191,6 @@ function isTodoPending(todoId: number): boolean {
 	@media (width >= 768px) {
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: var(--space-7);
-	}
-}
-
-// ========================================================================
-// Todo Tile - Modular Card Design
-// ========================================================================
-
-.todo-tile {
-	background-color: var(--ghost-white);
-	border: 1px solid var(--ghost-white-dark);
-	border-radius: var(--radius-md);
-	padding: var(--space-6);
-	transition: border-color 0.2s ease;
-	aspect-ratio: 1 / 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: var(--space-4);
-
-	&:hover {
-		border-color: var(--color-primary-light);
-	}
-}
-
-// ========================================================================
-// Todo Text
-// ========================================================================
-
-.todo-text {
-	font-family: "IBM Plex Mono", monospace;
-	font-size: var(--text-base);
-	line-height: 1.6;
-	color: var(--color-text);
-	margin: 0;
-	overflow-wrap: break-word;
-
-	&.todo-completed {
-		font-weight: 700;
-		text-decoration: line-through;
-		text-decoration-color: var(--color-primary);
-		text-decoration-thickness: 2px;
-	}
-}
-
-// ========================================================================
-// Todo Actions (Button Container)
-// ========================================================================
-
-.todo-actions {
-	display: flex;
-	gap: var(--space-3);
-	margin-top: auto;
-
-	button {
-		flex: 1;
-		font-size: var(--text-sm);
-		padding: var(--space-3) var(--space-4);
 	}
 }
 </style>
