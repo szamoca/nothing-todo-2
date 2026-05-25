@@ -1,50 +1,24 @@
-import { FetchError } from "ofetch";
-
-interface User {
-  id: number;
-}
+import { defineEventHandler, createError, getRouterParam } from "h3";
+import type { TodosListResponse } from "../../../../shared/types/todo";
+import { fetchFromApi } from "../../../../shared/utils/api-client";
+import { requireAuthAndOwnership } from "../../../../shared/utils/auth";
 
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
+	const userIdParam = getRouterParam(event, "userId");
 
-  const userIdParam = getRouterParam(event, "userId");
+	if (!userIdParam) {
+		throw createError({
+			statusCode: 400,
+			statusMessage: "Bad Request",
+			message: "No user ID was provided",
+		});
+	}
 
-  if (!userIdParam) {
-    throw createError({
-      statusCode: 400,
-      statusText: "No user ID was provided",
-    });
-  }
+	const userId = Number(userIdParam);
 
-  const userId = Number(userIdParam);
+	await requireAuthAndOwnership(event, userId);
 
-  const bearerToken = getHeader(event, "Authorization");
+	const response = await fetchFromApi<TodosListResponse>(`/todos/user/${userId}`);
 
-  if (!bearerToken) {
-    throw createError({ statusCode: 401 });
-  }
-
-  try {
-    const user = (await $fetch("/api/auth/me", {
-      headers: { Authorization: bearerToken },
-    })) as User;
-
-    if (user.id !== userId) {
-      throw createError({ statusCode: 403 });
-    }
-
-    const response = await $fetch(
-      `${config.public.apiBaseUrl}/todos/user/${userId}`,
-    );
-
-    return response;
-  } catch (error) {
-    if (error instanceof FetchError) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusText: error.statusText,
-      });
-    }
-    throw error;
-  }
+	return response;
 });

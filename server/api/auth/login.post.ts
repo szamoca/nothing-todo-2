@@ -1,37 +1,28 @@
-import { FetchError } from "ofetch";
+import { defineEventHandler, readBody, createError } from "h3";
+import type { AuthResponse } from "../../../shared/types/user";
+import { fetchFromApi } from "../../../shared/utils/api-client";
 
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
+	const { username, password } = await readBody(event);
 
-  const { username, password } = await readBody(event);
+	if (!(username && password)) {
+		throw createError({
+			statusCode: 400,
+			statusMessage: "Bad Request",
+			message: "Username and password are required",
+		});
+	}
 
-  if (!(username && password)) {
-    throw createError({
-      statusCode: 400,
-      message: "Username and password are required",
-    });
-  }
+	const response = await fetchFromApi<AuthResponse>("/auth/login", {
+		method: "POST",
+		body: JSON.stringify({
+			username,
+			password,
+			expiresInMins: 3600,
+		}),
+		headers: { "Content-Type": "application/json" },
+		credentials: "include",
+	});
 
-  try {
-    const response = await $fetch(`${config.public.apiBaseUrl}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: { "Content-Type": "application/json" },
-      expiresInMins: 3600,
-      credentials: "include",
-    });
-
-    return response;
-  } catch (error) {
-    if (error instanceof FetchError) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusText: error.statusText,
-      });
-    }
-    throw error;
-  }
+	return response;
 });

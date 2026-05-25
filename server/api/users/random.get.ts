@@ -1,24 +1,12 @@
-import { FetchError } from "ofetch";
+import { defineEventHandler } from "h3";
+import type { User } from "../../../shared/types/user";
+import { fetchFromApi } from "../../../shared/utils/api-client";
 
 export default defineEventHandler(async () => {
-  const config = useRuntimeConfig();
+	// TODO: Get the count of all users by API call
+	const userId = Math.floor(Math.random() * 208) + 1;
 
-  // TODO: Get the count of all users by API call
-  const userId = Math.floor(Math.random() * 208) + 1;
+	const response = await fetchFromApi<User>(`/users/${userId}`);
 
-  try {
-    const response = await $fetch(
-      `${config.public.apiBaseUrl}/users/${userId}`,
-    );
-
-    return response;
-  } catch (error) {
-    if (error instanceof FetchError) {
-      throw createError({
-        statusCode: error.statusCode,
-        statusText: error.statusText,
-      });
-    }
-    throw error;
-  }
+	return response;
 });
