@@ -59,6 +59,14 @@ Only after these details are clear should implementation begin.
 - Console: Only `console.warn` and `console.error` allowed
 - Linter: oxlint (not ESLint), formatter: oxfmt (not Prettier)
 
+### Vue File Block Order Convention
+
+- **Preferred order**: `<script>` → `<template>` → `<style>` blocks in Vue SFCs
+- **Note**: This order is a project convention but is **not enforced by oxlint**
+  - oxlint's Vue plugin does not currently support a `block-order` rule (unlike ESLint's eslint-plugin-vue)
+  - Developers should manually follow this convention when creating or modifying Vue files
+  - Code reviews should check for proper block ordering
+
 ## Internationalization (i18n)
 
 - **Translation format**: Always use `$t()` for all user-facing strings in Vue templates
