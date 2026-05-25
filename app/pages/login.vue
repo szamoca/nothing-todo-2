@@ -4,6 +4,9 @@ import type { FetchError } from "ofetch";
 // Fetch random user credentials on page load
 const { data: randomUser } = await useFetch<User>("/api/users/random");
 
+// Shared state for navbar refresh
+const navbarRefreshKey = useState<number>("navbarRefreshKey", () => 0);
+
 // Form state
 const username = ref("");
 const password = ref("");
@@ -31,6 +34,9 @@ async function handleLogin() {
 		// Save access token to cookie
 		const tokenCookie = useCookie("jwt_access_token");
 		tokenCookie.value = response.accessToken;
+
+		// Trigger navbar refresh
+		navbarRefreshKey.value++;
 
 		// Redirect to home page
 		await navigateTo("/");
