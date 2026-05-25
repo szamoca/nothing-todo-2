@@ -67,29 +67,26 @@ function isTodoPending(todoId: number): boolean {
 			</header>
 
 			<!-- Loading State -->
-			<div
+			<StateMessage
 				v-if="todosLoading"
-				class="state-message"
-			>
-				<div class="loading-spinner" />
-				<p>{{ $t("Loading your todos...") }}</p>
-			</div>
+				type="loading"
+				:message="$t('Loading your todos...')"
+				:show-spinner="true"
+			/>
 
 			<!-- Error State -->
-			<div
+			<StateMessage
 				v-else-if="error"
-				class="state-message state-error"
-			>
-				<p class="text-error">{{ $t(error) }}</p>
-			</div>
+				type="error"
+				:message="$t(error)"
+			/>
 
 			<!-- Empty State -->
-			<div
+			<StateMessage
 				v-else-if="hasLoaded && todos.length === 0"
-				class="state-message"
-			>
-				<p class="text-muted">{{ $t("Good news! You don't have any todos for now.") }}</p>
-			</div>
+				type="empty"
+				:message="$t('Good news! You don\'t have any todos for now.')"
+			/>
 
 			<!-- Todos List -->
 			<div
@@ -136,47 +133,6 @@ function isTodoPending(todoId: number): boolean {
 	color: var(--color-text);
 	letter-spacing: -0.02em;
 	margin: 0;
-}
-
-// ========================================================================
-// State Messages (Loading, Error, Empty)
-// ========================================================================
-
-.state-message {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: var(--space-5);
-	padding: var(--space-12) var(--space-6);
-	text-align: center;
-
-	p {
-		font-family: "IBM Plex Mono", monospace;
-		font-size: var(--text-lg);
-		margin: 0;
-	}
-}
-
-.state-error {
-	p {
-		font-weight: 500;
-	}
-}
-
-.loading-spinner {
-	width: 40px;
-	height: 40px;
-	border: 3px solid var(--ghost-white-dark);
-	border-top-color: var(--color-primary);
-	border-radius: 50%;
-	animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-	to {
-		transform: rotate(360deg);
-	}
 }
 
 // ========================================================================

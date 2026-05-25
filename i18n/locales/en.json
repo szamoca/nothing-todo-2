@@ -39,5 +39,6 @@
 	"Delete": "Delete",
 	"Toggle completion status for todo": "Toggle completion status for todo",
 	"Delete this todo": "Delete this todo",
-	"Deleting...": "Deleting..."
+	"Deleting...": "Deleting...",
+	"Loading": "Loading"
 }
