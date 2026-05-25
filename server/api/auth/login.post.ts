@@ -1,7 +1,3 @@
-import { defineEventHandler, readBody, createError } from "h3";
-import type { AuthResponse } from "../../../shared/types/user";
-import { fetchFromApi } from "../../../shared/utils/api-client";
-
 export default defineEventHandler(async (event) => {
 	const { username, password } = await readBody(event);
 

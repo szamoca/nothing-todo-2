@@ -1,8 +1,3 @@
-import { defineEventHandler, createError, getRouterParam } from "h3";
-import type { TodosListResponse } from "../../../../shared/types/todo";
-import { fetchFromApi } from "../../../../shared/utils/api-client";
-import { requireAuthAndOwnership } from "../../../../shared/utils/auth";
-
 export default defineEventHandler(async (event) => {
 	const userIdParam = getRouterParam(event, "userId");
 

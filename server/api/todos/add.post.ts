@@ -1,8 +1,3 @@
-import { defineEventHandler, readBody, createError } from "h3";
-import type { Todo } from "../../../shared/types/todo";
-import { fetchFromApi } from "../../../shared/utils/api-client";
-import { requireAuthAndOwnership } from "../../../shared/utils/auth";
-
 export default defineEventHandler(async (event) => {
 	const { todo, userId } = await readBody(event);
 
