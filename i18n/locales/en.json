@@ -3,7 +3,11 @@
 	"My Todos": "My Todos",
 	"Loading your todos...": "Loading your todos...",
 	"Failed to load todos. Please try again.": "Failed to load todos. Please try again.",
+	"Failed to update todo. Please try again.": "Failed to update todo. Please try again.",
 	"Good news! You don't have any todos for now.": "Good news! You don't have any todos for now!",
 	"Completed": "Completed",
-	"Not completed": "Not completed"
+	"Not completed": "Not completed",
+	"Toggle Completion": "Toggle Completion",
+	"Toggling...": "Toggling...",
+	"Todo not found": "Todo not found"
 }

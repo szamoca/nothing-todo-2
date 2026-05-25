@@ -132,16 +132,64 @@ export function useTodos() {
 	/**
 	 * Toggles the completion status of a todo.
 	 *
-	 * TODO: Implement toggle functionality
-	 * - Call /api/todos/{id} PUT endpoint
-	 * - Update local state optimistically or after response
-	 * - Handle errors gracefully
+	 * - Optimistically updates local state for immediate feedback
+	 * - Reverts the optimistic update if the API call fails
+	 * - Handles errors gracefully without throwing
 	 *
-	 * @param id - The todo ID to toggle
+	 * @param todoId - The todo ID to toggle
+	 * @param userId - The user ID that owns the todo
+	 * @returns Promise<boolean> - true if successful, false if failed
 	 */
-	// async function toggleTodo(id: number): Promise<boolean> {
-	// 	// Implementation pending
-	// }
+	async function toggleTodo(todoId: number, userId: number): Promise<boolean> {
+		isLoading.value = true;
+		error.value = null;
+
+		const todoIndex = todos.value.findIndex((todo) => todo.id === todoId);
+		if (todoIndex === -1) {
+			error.value = "Todo not found";
+			isLoading.value = false;
+			return false;
+		}
+
+		const todo = todos.value[todoIndex];
+		if (!todo) {
+			error.value = "Todo not found";
+			isLoading.value = false;
+			return false;
+		}
+
+		const originalCompleted = todo.completed;
+		todo.completed = !originalCompleted;
+
+		try {
+			const token = useCookie("jwt_access_token");
+
+			const headers: Record<string, string> = {};
+			if (token.value) {
+				headers.Authorization = `Bearer ${token.value}`;
+			}
+
+			const response = await $fetch<Todo>(`/api/todos/${todoId}`, {
+				method: "PUT",
+				headers,
+				body: {
+					userId,
+					completed: !originalCompleted,
+				},
+			});
+
+			todos.value[todoIndex] = response;
+
+			return true;
+		} catch (err: unknown) {
+			todo.completed = originalCompleted;
+			error.value = "Failed to update todo. Please try again.";
+			console.warn("Failed to toggle todo:", err);
+			return false;
+		} finally {
+			isLoading.value = false;
+		}
+	}
 
 	/**
 	 * Deletes a todo.
@@ -185,6 +233,7 @@ export function useTodos() {
 		limit: readonly(limit),
 		fetchTodos,
 		addTodo,
+		toggleTodo,
 		clearTodos,
 	};
 }
