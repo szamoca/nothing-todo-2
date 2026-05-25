@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
   const bearerToken = getHeader(event, "Authorization");
 
   if (!bearerToken) {
-    throw createError({ statusCode: 400, statusText: "No token was passed" });
+    throw createError({ statusCode: 401 });
   }
 
   try {
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     })) as User;
 
     if (user.id !== userId) {
-      throw createError({ statusCode: 422, statusText: "User ID mismatch" });
+      throw createError({ statusCode: 403 });
     }
 
     const response = await $fetch(
