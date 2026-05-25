@@ -1,0 +1,233 @@
+// ============================================================================
+// Component Utilities
+// ============================================================================
+
+@use '__mixins' as *;
+
+// ========================================================================
+// Button Variants
+// ========================================================================
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-4) var(--space-6);
+	font-size: var(--text-base);
+	font-weight: 500;
+	font-family: 'Space Grotesk', sans-serif;
+	border-radius: var(--radius-base);
+	transition: all 0.2s ease;
+	cursor: pointer;
+	border: 1px solid transparent;
+	
+	&:focus-visible {
+		@include focus-ring;
+	}
+	
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.btn-primary {
+	@extend .btn;
+
+	background-color: var(--color-primary);
+	color: var(--ghost-white);
+	
+	&:hover:not(:disabled) {
+		background-color: var(--color-primary-hover);
+	}
+}
+
+.btn-accent {
+	@extend .btn;
+
+	background-color: var(--color-accent);
+	color: var(--ghost-white);
+	
+	&:hover:not(:disabled) {
+		background-color: var(--color-accent-hover);
+	}
+}
+
+.btn-ghost {
+	@extend .btn;
+
+	background-color: transparent;
+	border-color: var(--jet-black-light);
+	color: var(--color-text);
+	
+	&:hover:not(:disabled) {
+		background-color: var(--color-surface);
+		border-color: var(--color-text);
+	}
+}
+
+// ========================================================================
+// Input Styles
+// ========================================================================
+
+.input {
+	width: 100%;
+	padding: var(--space-4) var(--space-5);
+	font-size: var(--text-base);
+	font-family: 'IBM Plex Mono', monospace;
+	background-color: var(--color-background);
+	border: 1px solid var(--jet-black-light);
+	border-radius: var(--radius-base);
+	color: var(--color-text);
+	transition: border-color 0.2s ease;
+	
+	&:focus {
+		outline: none;
+		border-color: var(--color-primary);
+	}
+	
+	&::placeholder {
+		color: var(--color-text-muted);
+	}
+	
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// ========================================================================
+// Todo Tile
+// ========================================================================
+
+.tile {
+	@include surface-elevated;
+
+	padding: var(--space-6);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--ghost-white-dark);
+	transition: all 0.2s ease;
+	
+	&:hover {
+		@include surface-raised;
+
+		border-color: var(--color-primary-light);
+	}
+}
+
+.tile-offset {
+	@extend .tile;
+
+	transform: translateY(-4px);
+}
+
+// ========================================================================
+// Navbar
+// ========================================================================
+
+.navbar {
+	@include flex-between;
+
+	padding: var(--space-6) var(--space-8);
+	background-color: var(--color-background);
+	border-bottom: 1px solid var(--ghost-white-dark);
+}
+
+// ========================================================================
+// Pagination
+// ========================================================================
+
+.pagination {
+	@include flex-center;
+
+	gap: var(--space-3);
+	
+	button {
+		@extend .btn;
+
+		min-width: 2.5rem;
+		padding: var(--space-3) var(--space-4);
+		
+		&.active {
+			background-color: var(--color-primary);
+			color: var(--ghost-white);
+		}
+		
+		&:not(.active) {
+			background-color: transparent;
+			border: 1px solid var(--jet-black-light);
+			
+			&:hover:not(:disabled) {
+				background-color: var(--color-surface);
+			}
+		}
+	}
+}
+
+// ========================================================================
+// Layout Utilities
+// ========================================================================
+
+.container {
+	@include container;
+}
+
+.flex-center {
+	@include flex-center;
+}
+
+.flex-between {
+	@include flex-between;
+}
+
+.grid-auto {
+	@include grid-auto;
+}
+
+// ========================================================================
+// Spacing Utilities
+// ========================================================================
+
+.gap-2 {
+	gap: var(--space-2);
+}
+
+.gap-4 {
+	gap: var(--space-4);
+}
+
+.gap-6 {
+	gap: var(--space-6);
+}
+
+.mt-4 {
+	margin-top: var(--space-4);
+}
+
+.mt-6 {
+	margin-top: var(--space-6);
+}
+
+.mb-4 {
+	margin-bottom: var(--space-4);
+}
+
+.mb-6 {
+	margin-bottom: var(--space-6);
+}
+
+// ========================================================================
+// Text Utilities
+// ========================================================================
+
+.text-muted {
+	color: var(--color-text-muted);
+}
+
+.text-error {
+	color: var(--color-error);
+}
+
+.truncate {
+	@include truncate;
+}

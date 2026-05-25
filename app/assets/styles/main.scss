@@ -1,4 +1,64 @@
+// ============================================================================
+// Main SCSS Entry Point
+// ============================================================================
+
+// 1. Variables (must be first)
+@use '__variables' as *;
+
+// 2. Reset
+@use '__reset';
+
+// 3. Mixins
+@use '__mixins' as *;
+
+// 4. Utilities
+@use '__utilities';
+
+// ============================================================================
+// Global Styles
+// ============================================================================
+
 body {
-    background-color: hsl(166deg 48% 80%);
-    color: darkblue;
+	background-color: var(--color-background);
+	background-image: radial-gradient(circle, var(--jet-black-light) 1px, transparent 1px);
+	background-size: 24px 24px;
+	background-position: 0 0;
+	color: var(--color-text);
+	font-family: 'IBM Plex Mono', monospace;
+	line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Space Grotesk', sans-serif;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: var(--text-5xl);
+}
+
+h2 {
+	font-size: var(--text-4xl);
+}
+
+h3 {
+	font-size: var(--text-3xl);
+}
+
+h4 {
+	font-size: var(--text-2xl);
+}
+
+h5 {
+	font-size: var(--text-xl);
+}
+
+h6 {
+	font-size: var(--text-lg);
 }

@@ -7,8 +7,15 @@ export default defineNuxtConfig({
     "@nuxtjs/stylelint-module",
     "@nuxt/test-utils/module",
     "@nuxtjs/i18n",
+    "@nuxt/fonts",
   ],
   css: ["~/assets/styles/main.scss"],
+  fonts: {
+    families: [
+      { name: 'Space Grotesk', provider: 'google', weights: [400, 500, 600, 700] },
+      { name: 'IBM Plex Mono', provider: 'google', weights: [400, 500, 600] }
+    ]
+  },
   runtimeConfig: {
     public: {
       apiBaseUrl: "",

@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
+    "lint:styles": "stylelint \"**/*.{css,scss,vue}\"",
+    "lint:styles:fix": "stylelint \"**/*.{css,scss,vue}\" --fix",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check",
     "test": "vitest",
@@ -28,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@nuxt/fonts": "0.14.0",
     "@nuxtjs/i18n": "^10.4.0",
     "nuxt": "^4.4.6",
     "vue": "^3.5.34",
