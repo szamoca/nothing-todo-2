@@ -58,7 +58,7 @@ async function handleAddTodo() {
 <template>
 	<div class="add-todo-page">
 		<div class="add-todo-container">
-			<h1 class="add-todo-title">{{ $t("Create a New Todo") }}</h1>
+			<PageHeader :title="$t('Create a New Todo')" />
 
 			<form
 				@submit.prevent="handleAddTodo"
@@ -99,21 +99,13 @@ async function handleAddTodo() {
 
 .add-todo-page {
 	@include container(600px);
-
-	padding-block: var(--space-10);
+	@include page-wrapper;
 }
 
 .add-todo-container {
 	@include flex-column;
 
 	gap: var(--space-6);
-}
-
-.add-todo-title {
-	font-size: var(--text-4xl);
-	font-weight: 700;
-	text-align: center;
-	margin-bottom: var(--space-4);
 }
 
 .add-todo-form {

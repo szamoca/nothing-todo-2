@@ -53,7 +53,7 @@ async function handleLogin() {
 <template>
 	<div class="login-page">
 		<div class="login-container">
-			<h1 class="login-title">{{ $t("Login") }}</h1>
+			<PageHeader :title="$t('Login')" />
 
 			<!-- Random User Credentials Display -->
 			<div
@@ -124,21 +124,13 @@ async function handleLogin() {
 
 .login-page {
 	@include container(600px);
-
-	padding-block: var(--space-10);
+	@include page-wrapper;
 }
 
 .login-container {
 	@include flex-column;
 
 	gap: var(--space-6);
-}
-
-.login-title {
-	font-size: var(--text-4xl);
-	font-weight: 700;
-	text-align: center;
-	margin-bottom: var(--space-4);
 }
 
 .credentials-display {

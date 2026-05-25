@@ -62,9 +62,10 @@ function isTodoPending(todoId: number): boolean {
 	<div class="todos-page">
 		<div class="container">
 			<!-- Page Header -->
-			<header class="page-header">
-				<h1 class="page-title">{{ $t("My Todos") }}</h1>
-			</header>
+			<PageHeader
+				:title="$t('My Todos')"
+				align="left"
+			/>
 
 			<!-- Loading State -->
 			<StateMessage
@@ -107,32 +108,18 @@ function isTodoPending(todoId: number): boolean {
 </template>
 
 <style lang="scss" scoped>
+@use "~/assets/styles/__mixins" as *;
+
 .todos-page {
+	@include page-wrapper;
+
 	min-height: 100vh;
-	padding: var(--space-8) 0;
 }
 
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 var(--space-6);
-}
-
-// ========================================================================
-// Page Header
-// ========================================================================
-
-.page-header {
-	margin-bottom: var(--space-10);
-}
-
-.page-title {
-	font-family: "Space Grotesk", sans-serif;
-	font-size: var(--text-5xl);
-	font-weight: 700;
-	color: var(--color-text);
-	letter-spacing: -0.02em;
-	margin: 0;
 }
 
 // ========================================================================
