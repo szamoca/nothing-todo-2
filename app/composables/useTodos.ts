@@ -109,8 +109,14 @@ export function useTodos() {
 				},
 			});
 
+			// Use negative timestamp as local ID to identify locally-created todos
+			const localTodo: Todo = {
+				...response,
+				id: -Date.now(),
+			};
+
 			// Add the returned todo to the beginning of the list for visibility
-			todos.value = [response, ...todos.value];
+			todos.value = [localTodo, ...todos.value];
 
 			// Update total count
 			total.value += 1;
@@ -160,6 +166,12 @@ export function useTodos() {
 
 		const originalCompleted = todo.completed;
 		todo.completed = !originalCompleted;
+
+		// If it's a local todo (negative ID), skip API call
+		if (todoId < 0) {
+			isLoading.value = false;
+			return true;
+		}
 
 		try {
 			const token = useCookie("jwt_access_token");
