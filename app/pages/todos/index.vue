@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 // Composables
 const { userId, isAuthenticated, isLoading: userLoading } = useUser();
-const { todos, isLoading: todosLoading, error, hasLoaded, fetchTodos, toggleTodo } = useTodos();
+const { todos, isLoading: todosLoading, error, hasLoaded, fetchTodos, toggleTodo, deleteTodo } = useTodos();
 
 // Local pending state per tile to prevent race conditions
 const pendingTodoIds = ref<number[]>([]);
@@ -44,6 +44,13 @@ async function handleToggleTodo(todoId: number) {
 	} finally {
 		pendingTodoIds.value = pendingTodoIds.value.filter((id) => id !== todoId);
 	}
+}
+
+async function handleDeleteTodo(todoId: number) {
+	if (!userId.value) {
+		return;
+	}
+	await deleteTodo(todoId, userId.value);
 }
 
 function isTodoPending(todoId: number): boolean {
@@ -101,15 +108,26 @@ function isTodoPending(todoId: number): boolean {
 						{{ todo.todo }}
 					</p>
 
-					<button
-						type="button"
-						:class="todo.completed ? 'btn-ghost' : 'btn-accent'"
-						:disabled="todosLoading || isTodoPending(todo.id)"
-						:aria-busy="isTodoPending(todo.id)"
-						@click="handleToggleTodo(todo.id)"
-					>
-						{{ isTodoPending(todo.id) ? $t("Toggling...") : $t("Toggle Completion") }}
-					</button>
+					<div class="todo-actions">
+						<button
+							type="button"
+							:class="todo.completed ? 'btn-ghost' : 'btn-accent'"
+							:disabled="todosLoading || isTodoPending(todo.id)"
+							:aria-busy="isTodoPending(todo.id)"
+							@click="handleToggleTodo(todo.id)"
+						>
+							{{ isTodoPending(todo.id) ? $t("Toggling...") : $t("Toggle Completion") }}
+						</button>
+
+						<button
+							type="button"
+							class="btn-danger"
+							:disabled="todosLoading"
+							@click="handleDeleteTodo(todo.id)"
+						>
+							{{ $t("Delete") }}
+						</button>
+					</div>
 				</article>
 			</div>
 		</div>
@@ -220,13 +238,6 @@ function isTodoPending(todoId: number): boolean {
 	&:hover {
 		border-color: var(--color-primary-light);
 	}
-
-	button {
-		width: 100%;
-		font-size: var(--text-sm);
-		padding: var(--space-3) var(--space-4);
-		margin-top: auto;
-	}
 }
 
 // ========================================================================
@@ -246,6 +257,22 @@ function isTodoPending(todoId: number): boolean {
 		text-decoration: line-through;
 		text-decoration-color: var(--color-primary);
 		text-decoration-thickness: 2px;
+	}
+}
+
+// ========================================================================
+// Todo Actions (Button Container)
+// ========================================================================
+
+.todo-actions {
+	display: flex;
+	gap: var(--space-3);
+	margin-top: auto;
+
+	button {
+		flex: 1;
+		font-size: var(--text-sm);
+		padding: var(--space-3) var(--space-4);
 	}
 }
 </style>

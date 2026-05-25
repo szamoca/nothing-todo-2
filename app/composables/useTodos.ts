@@ -206,16 +206,55 @@ export function useTodos() {
 	/**
 	 * Deletes a todo.
 	 *
-	 * TODO: Implement delete functionality
-	 * - Call /api/todos/{id} DELETE endpoint
-	 * - Remove from local state
-	 * - Handle errors gracefully
+	 * - For local todos (negative IDs): Skip API call, remove from state immediately
+	 * - For API todos: Call /api/todos/{id} DELETE endpoint, then remove from state
+	 * - Handles errors gracefully without throwing
 	 *
-	 * @param id - The todo ID to delete
+	 * @param todoId - The todo ID to delete
+	 * @param userId - The user ID that owns the todo
+	 * @returns Promise<boolean> - true if successful, false if failed
 	 */
-	// async function deleteTodo(id: number): Promise<boolean> {
-	// 	// Implementation pending
-	// }
+	async function deleteTodo(todoId: number, userId: number): Promise<boolean> {
+		isLoading.value = true;
+		error.value = null;
+
+		// If it's a local todo (negative ID), skip API call and remove immediately
+		if (todoId < 0) {
+			todos.value = todos.value.filter((todo) => todo.id !== todoId);
+			total.value -= 1;
+			isLoading.value = false;
+			return true;
+		}
+
+		try {
+			const token = useCookie("jwt_access_token");
+
+			const headers: Record<string, string> = {};
+			if (token.value) {
+				headers.Authorization = `Bearer ${token.value}`;
+			}
+
+			await $fetch(`/api/todos/${todoId}`, {
+				method: "DELETE",
+				headers,
+				body: {
+					userId,
+				},
+			});
+
+			// Remove from local state on success
+			todos.value = todos.value.filter((todo) => todo.id !== todoId);
+			total.value -= 1;
+
+			return true;
+		} catch (err: unknown) {
+			error.value = "Failed to delete todo. Please try again.";
+			console.warn("Failed to delete todo:", err);
+			return false;
+		} finally {
+			isLoading.value = false;
+		}
+	}
 
 	/**
 	 * Clears all todos from state.
@@ -246,6 +285,7 @@ export function useTodos() {
 		fetchTodos,
 		addTodo,
 		toggleTodo,
+		deleteTodo,
 		clearTodos,
 	};
 }

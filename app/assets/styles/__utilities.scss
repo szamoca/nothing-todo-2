@@ -53,6 +53,19 @@
 	}
 }
 
+.btn-danger {
+	@extend .btn;
+
+	background-color: var(--burnt-peach);
+	color: var(--color-text);
+	border: 1px solid var(--burnt-peach);
+
+	&:hover:not(:disabled) {
+		background-color: var(--burnt-peach-dark);
+		border-color: var(--burnt-peach-dark);
+	}
+}
+
 .btn-ghost {
 	@extend .btn;
 
