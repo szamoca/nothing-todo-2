@@ -78,31 +78,27 @@ async function handleLogin() {
 				@submit.prevent="handleLogin"
 				class="login-form tile-offset"
 			>
-				<div class="form-group">
-					<label for="username">{{ $t("Username") }}</label>
-					<input
-						id="username"
-						v-model="username"
-						type="text"
-						class="input"
-						:placeholder="$t('Enter username')"
-						:disabled="isLoading"
-						required
-					/>
-				</div>
+				<FormField
+					id="username"
+					v-model="username"
+					type="text"
+					:label="$t('Username')"
+					:placeholder="$t('Enter username')"
+					:disabled="isLoading"
+					:required="true"
+					autocomplete="username"
+				/>
 
-				<div class="form-group">
-					<label for="password">{{ $t("Password") }}</label>
-					<input
-						id="password"
-						v-model="password"
-						type="password"
-						class="input"
-						:placeholder="$t('Enter password')"
-						:disabled="isLoading"
-						required
-					/>
-				</div>
+				<FormField
+					id="password"
+					v-model="password"
+					type="password"
+					:label="$t('Password')"
+					:placeholder="$t('Enter password')"
+					:disabled="isLoading"
+					:required="true"
+					autocomplete="current-password"
+				/>
 
 				<p
 					v-if="errorMessage"
@@ -178,17 +174,5 @@ async function handleLogin() {
 	@include flex-column;
 
 	gap: var(--space-6);
-}
-
-.form-group {
-	@include flex-column;
-
-	gap: var(--space-2);
-
-	label {
-		font-weight: 500;
-		font-size: var(--text-sm);
-		color: var(--color-text);
-	}
 }
 </style>

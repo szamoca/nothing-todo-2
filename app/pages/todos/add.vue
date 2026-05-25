@@ -64,18 +64,16 @@ async function handleAddTodo() {
 				@submit.prevent="handleAddTodo"
 				class="add-todo-form tile-offset"
 			>
-				<div class="form-group">
-					<label for="todo-text">{{ $t("Todo") }}</label>
-					<textarea
-						id="todo-text"
-						v-model="todoText"
-						class="input"
-						:placeholder="$t('Enter your todo...')"
-						:disabled="isLoading"
-						rows="4"
-						required
-					/>
-				</div>
+				<FormField
+					id="todo-text"
+					v-model="todoText"
+					type="textarea"
+					:label="$t('Todo')"
+					:placeholder="$t('Enter your todo...')"
+					:disabled="isLoading"
+					:required="true"
+					:rows="4"
+				/>
 
 				<p
 					v-if="errorMessage"
@@ -122,23 +120,5 @@ async function handleAddTodo() {
 	@include flex-column;
 
 	gap: var(--space-6);
-}
-
-.form-group {
-	@include flex-column;
-
-	gap: var(--space-2);
-
-	label {
-		font-weight: 500;
-		font-size: var(--text-sm);
-		color: var(--color-text);
-	}
-}
-
-textarea.input {
-	min-height: 120px;
-	resize: vertical;
-	font-family: "IBM Plex Mono", monospace;
 }
 </style>
