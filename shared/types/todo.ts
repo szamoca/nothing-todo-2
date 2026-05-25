@@ -17,3 +17,12 @@ export interface TodosListResponse {
 	skip: number;
 	limit: number;
 }
+
+/**
+ * Response returned by DELETE /todos/{id}.
+ * DummyJSON returns the deleted todo with additional metadata.
+ */
+export interface TodoDeleteResponse extends Todo {
+	isDeleted: boolean;
+	deletedOn: string; // ISO 8601 timestamp
+}
