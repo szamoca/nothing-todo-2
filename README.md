@@ -1,6 +1,6 @@
 # Production-style todo application
 
-A production-ready todo application built with Nuxt 4, Vue 3 Composition API, TypeScript, and SCSS, integrating with the DummyJSON API.
+A production-style todo application built with Nuxt 4, Vue 3 Composition API, TypeScript, and SCSS, integrating with the DummyJSON API.
 
 ## Getting started
 
