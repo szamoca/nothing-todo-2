@@ -1,6 +1,6 @@
 <template>
-    <NavigationBar />
-    <div class="container">
-        <slot />
-    </div>
+	<NavigationBar />
+	<div class="container">
+		<slot />
+	</div>
 </template>

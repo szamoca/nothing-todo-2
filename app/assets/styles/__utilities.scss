@@ -2,7 +2,7 @@
 // Component Utilities
 // ============================================================================
 
-@use '__mixins' as *;
+@use "__mixins" as *;
 
 // ========================================================================
 // Button Variants
@@ -15,16 +15,16 @@
 	padding: var(--space-4) var(--space-6);
 	font-size: var(--text-base);
 	font-weight: 500;
-	font-family: 'Space Grotesk', sans-serif;
+	font-family: "Space Grotesk", sans-serif;
 	border-radius: var(--radius-base);
 	transition: all 0.2s ease;
 	cursor: pointer;
 	border: 1px solid transparent;
-	
+
 	&:focus-visible {
 		@include focus-ring;
 	}
-	
+
 	&:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
@@ -36,7 +36,7 @@
 
 	background-color: var(--color-primary);
 	color: var(--ghost-white);
-	
+
 	&:hover:not(:disabled) {
 		background-color: var(--color-primary-hover);
 	}
@@ -47,7 +47,7 @@
 
 	background-color: var(--color-accent);
 	color: var(--ghost-white);
-	
+
 	&:hover:not(:disabled) {
 		background-color: var(--color-accent-hover);
 	}
@@ -59,7 +59,7 @@
 	background-color: transparent;
 	border-color: var(--jet-black-light);
 	color: var(--color-text);
-	
+
 	&:hover:not(:disabled) {
 		background-color: var(--color-surface);
 		border-color: var(--color-text);
@@ -74,22 +74,22 @@
 	width: 100%;
 	padding: var(--space-4) var(--space-5);
 	font-size: var(--text-base);
-	font-family: 'IBM Plex Mono', monospace;
+	font-family: "IBM Plex Mono", monospace;
 	background-color: var(--color-background);
 	border: 1px solid var(--jet-black-light);
 	border-radius: var(--radius-base);
 	color: var(--color-text);
 	transition: border-color 0.2s ease;
-	
+
 	&:focus {
 		outline: none;
 		border-color: var(--color-primary);
 	}
-	
+
 	&::placeholder {
 		color: var(--color-text-muted);
 	}
-	
+
 	&:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
@@ -107,7 +107,7 @@
 	border-radius: var(--radius-md);
 	border: 1px solid var(--ghost-white-dark);
 	transition: all 0.2s ease;
-	
+
 	&:hover {
 		@include surface-raised;
 
@@ -141,22 +141,22 @@
 	@include flex-center;
 
 	gap: var(--space-3);
-	
+
 	button {
 		@extend .btn;
 
 		min-width: 2.5rem;
 		padding: var(--space-3) var(--space-4);
-		
+
 		&.active {
 			background-color: var(--color-primary);
 			color: var(--ghost-white);
 		}
-		
+
 		&:not(.active) {
 			background-color: transparent;
 			border: 1px solid var(--jet-black-light);
-			
+
 			&:hover:not(:disabled) {
 				background-color: var(--color-surface);
 			}

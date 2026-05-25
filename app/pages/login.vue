@@ -56,7 +56,10 @@ async function handleLogin() {
 			<h1 class="login-title">{{ $t("Login") }}</h1>
 
 			<!-- Random User Credentials Display -->
-			<div v-if="randomUser" class="tile credentials-display">
+			<div
+				v-if="randomUser"
+				class="tile credentials-display"
+			>
 				<p class="text-muted">{{ $t("Test credentials:") }}</p>
 				<div class="credentials-info">
 					<div>
@@ -71,7 +74,10 @@ async function handleLogin() {
 			</div>
 
 			<!-- Login Form -->
-			<form @submit.prevent="handleLogin" class="login-form tile-offset">
+			<form
+				@submit.prevent="handleLogin"
+				class="login-form tile-offset"
+			>
 				<div class="form-group">
 					<label for="username">{{ $t("Username") }}</label>
 					<input
@@ -98,9 +104,18 @@ async function handleLogin() {
 					/>
 				</div>
 
-				<p v-if="errorMessage" class="text-error">{{ errorMessage }}</p>
+				<p
+					v-if="errorMessage"
+					class="text-error"
+				>
+					{{ errorMessage }}
+				</p>
 
-				<button type="submit" class="btn-primary" :disabled="isLoading">
+				<button
+					type="submit"
+					class="btn-primary"
+					:disabled="isLoading"
+				>
 					{{ isLoading ? $t("Logging in...") : $t("Login") }}
 				</button>
 			</form>
@@ -109,7 +124,7 @@ async function handleLogin() {
 </template>
 
 <style lang="scss" scoped>
-@use '~/assets/styles/__mixins' as *;
+@use "~/assets/styles/__mixins" as *;
 
 .login-page {
 	@include container(600px);
@@ -141,7 +156,7 @@ async function handleLogin() {
 	@include flex-column;
 
 	gap: var(--space-3);
-	font-family: 'IBM Plex Mono', monospace;
+	font-family: "IBM Plex Mono", monospace;
 	font-size: var(--text-sm);
 
 	div {

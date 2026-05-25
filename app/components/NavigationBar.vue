@@ -2,7 +2,7 @@
 const refreshKey = useState<number>("navbarRefreshKey", () => 0);
 
 const { data: user } = await useAsyncData("navbar-user", verifyAuthentication, {
-    watch: [refreshKey],
+	watch: [refreshKey],
 });
 
 async function logout() {
@@ -11,70 +11,80 @@ async function logout() {
 }
 
 async function verifyAuthentication() {
-    try {
-        const token = useCookie("jwt_access_token");
+	try {
+		const token = useCookie("jwt_access_token");
 
-        if (!token.value) {
-            return false;
-        }
+		if (!token.value) {
+			return false;
+		}
 
-        const result = await $fetch("/api/auth/me", {
-        	method: "GET",
-        	headers: { Authorization: `Bearer ${token.value}` },
-        });
+		const result = await $fetch("/api/auth/me", {
+			method: "GET",
+			headers: { Authorization: `Bearer ${token.value}` },
+		});
 
-        if (!result.id) {
-            return false;
-        }
+		if (!result.id) {
+			return false;
+		}
 
-        return result;
-    } catch (e) {
-        console.warn(e);
-    }
+		return result;
+	} catch (e) {
+		console.warn(e);
+	}
 }
 </script>
 
 <template>
-    <nav class="navbar" :key="refreshKey">
-        <NuxtLink to="/">{{ $t("NOTHING todo") }}</NuxtLink>
+	<nav
+		class="navbar"
+		:key="refreshKey"
+	>
+		<NuxtLink to="/">{{ $t("NOTHING todo") }}</NuxtLink>
 
-        <ul class="flex-between gap-6">
-        	<li>
-        		<NuxtLink to="/about">{{ $t("About") }}</NuxtLink>
-        	</li>
-        	<template v-if="user">
-        		<li>
-        			<NuxtLink to="/todos">{{ $t("My Todos") }}</NuxtLink>
-        		</li>
-        		<li>
-        			<NuxtLink to="/todos/add">{{ $t("Create a New Todo") }}</NuxtLink>
-        		</li>
-        		<li>
-        			<button @click="logout" class="logout-btn auth-link">
-        				{{ $t("Logout") }}
-        			</button>
-        		</li>
-        		<li class="username">{{ user.username }}</li>
-        	</template>
-        	<template v-else>
-        		<li>
-        			<NuxtLink to="/login" class="auth-link">{{ $t("Login") }}</NuxtLink>
-        		</li>
-        	</template>
-        </ul>
-    </nav>
+		<ul class="flex-between gap-6">
+			<li>
+				<NuxtLink to="/about">{{ $t("About") }}</NuxtLink>
+			</li>
+			<template v-if="user">
+				<li>
+					<NuxtLink to="/todos">{{ $t("My Todos") }}</NuxtLink>
+				</li>
+				<li>
+					<NuxtLink to="/todos/add">{{ $t("Create a New Todo") }}</NuxtLink>
+				</li>
+				<li>
+					<button
+						@click="logout"
+						class="logout-btn auth-link"
+					>
+						{{ $t("Logout") }}
+					</button>
+				</li>
+				<li class="username">{{ user.username }}</li>
+			</template>
+			<template v-else>
+				<li>
+					<NuxtLink
+						to="/login"
+						class="auth-link"
+						>{{ $t("Login") }}</NuxtLink
+					>
+				</li>
+			</template>
+		</ul>
+	</nav>
 </template>
 
 <style lang="scss" scoped>
-@use '~/assets/styles/__mixins' as *;
+@use "~/assets/styles/__mixins" as *;
 
 .navbar {
 	background-color: var(--espresso);
-	
+
 	a,
 	.logout-btn {
 		@include link-nav;
-		
+
 		color: var(--ghost-white);
 		background: none;
 		border: none;
@@ -83,18 +93,18 @@ async function verifyAuthentication() {
 		font-size: inherit;
 		font-family: inherit;
 	}
-	
+
 	.auth-link {
 		&:hover {
 			text-decoration-color: var(--burnt-peach);
 		}
 	}
-	
+
 	.username {
 		font-weight: 600;
 		color: var(--color-primary);
 	}
-	
+
 	ul {
 		list-style: none;
 		padding: 0;

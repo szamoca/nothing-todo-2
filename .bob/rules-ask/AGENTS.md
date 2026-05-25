@@ -47,13 +47,73 @@ Production-style Todo application demonstrating Nuxt 4 and Vue 3 best practices 
 
 ## Project Structure
 
-- **Types**: `shared/types/` - derived from DummyJSON API responses
-- **Composables**: `composables/` - API/data logic (auto-imported)
-- **Components**: `components/` - reusable UI components (auto-imported)
-- **Server routes**: `server/api/` - proxy routes to DummyJSON API
-- **Styles**: `app/assets/styles/` - SCSS architecture
-- **i18n locales**: `i18n/locales/` (not typical `locales/` or `lang/` directories)
+This project follows Nuxt 4 conventions with a specific directory structure. See the detailed "Nuxt 4 Directory Structure" section below for complete information about where to place files.
+
+Key points:
+- **All application code** must be in the `app/` directory
+- **Types and utilities** go in `shared/` (auto-imported)
+- **Server routes** go in `server/api/`
+- **i18n locales** are in `i18n/locales/` (not typical `locales/` or `lang/` directories)
 - **Test split**: `test/unit/` for node env, `test/nuxt/` for Nuxt-specific tests with happy-dom
+
+## Nuxt 4 Directory Structure
+
+**CRITICAL**: This project uses Nuxt 4's directory structure. All application code (components, composables, pages, layouts) MUST be placed inside the `app/` directory. Do NOT create root-level `composables/`, `components/`, or `pages/` directories.
+
+### The `app/` Directory
+
+The `app/` directory is the main application directory containing all client-side code:
+
+- **`app/assets/`** - Static assets like styles, images, fonts
+  - `app/assets/styles/` - SCSS architecture with variables, mixins, utilities
+- **`app/components/`** - Vue components (auto-imported throughout the app)
+  - Example: `app/components/NavigationBar.vue`
+- **`app/composables/`** - Composables for shared logic (auto-imported throughout the app)
+  - Example: `app/composables/useUser.ts`
+  - **CRITICAL**: Composables go in `app/composables/`, NOT in a root-level `composables/` directory
+- **`app/layouts/`** - Layout components for different page structures
+  - Example: `app/layouts/default.vue`
+- **`app/pages/`** - File-based routing pages
+  - Example: `app/pages/index.vue`, `app/pages/todos/index.vue`
+- **`app/app.vue`** - Root application component
+
+### The `shared/` Directory
+
+The `shared/` directory contains code that is auto-imported and accessible throughout the app:
+
+- **`shared/types/`** - TypeScript type definitions (auto-imported)
+  - Derive types from DummyJSON API responses
+  - Example: `shared/types/todo.ts`, `shared/types/user.ts`
+- **`shared/utils/`** - Utility functions (auto-imported)
+  - Example: `shared/utils/api-client.ts`, `shared/utils/auth.ts`
+
+### The `server/` Directory
+
+The `server/` directory contains server-side code:
+
+- **`server/api/`** - API route handlers following Nuxt file-based routing
+  - Example: `server/api/todos/[id].put.ts`, `server/api/auth/login.post.ts`
+  - All routes proxy to the external DummyJSON API
+
+### Other Root-Level Directories
+
+- **`i18n/locales/`** - Translation files for internationalization
+  - Example: `i18n/locales/en.json`
+- **`public/`** - Public static files served at the root
+  - Example: `public/favicon.ico`, `public/robots.txt`
+- **`test/`** - Test files
+  - `test/unit/` - Unit tests (node environment)
+  - `test/nuxt/` - Nuxt component tests (nuxt environment with happy-dom)
+
+### Critical Reminders
+
+- ✅ **DO**: Place composables in `app/composables/`
+- ✅ **DO**: Place components in `app/components/`
+- ✅ **DO**: Place pages in `app/pages/`
+- ✅ **DO**: Place types in `shared/types/`
+- ❌ **DON'T**: Create a root-level `composables/` directory
+- ❌ **DON'T**: Create a root-level `components/` directory
+- ❌ **DON'T**: Create a root-level `pages/` directory
 
 ## Internationalization (i18n)
 
