@@ -55,6 +55,15 @@ Production-style Todo application demonstrating Nuxt 4 and Vue 3 best practices 
 - **i18n locales**: `i18n/locales/` (not typical `locales/` or `lang/` directories)
 - **Test split**: `test/unit/` for node env, `test/nuxt/` for Nuxt-specific tests with happy-dom
 
+## Internationalization (i18n)
+
+- **Translation format**: Always use `$t()` for all user-facing strings in Vue templates
+  - Example: `{{ $t("This is a minimal todo app.") }}`
+  - Use this format even if the translation key doesn't exist in `i18n/locales/*.json` files yet
+  - This demonstrates production-ready i18n intent and makes it clear to reviewers that translations are intended everywhere
+- **Locale files**: Translation files are located in `i18n/locales/` directory
+- **Strategy**: Project uses `no_prefix` strategy with cookie-based locale detection
+
 ## Configuration Context
 
 - **API proxy**: All server routes proxy to DummyJSON API defined in `NUXT_PUBLIC_API_BASE_URL` env var

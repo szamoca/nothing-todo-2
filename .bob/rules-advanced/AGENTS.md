@@ -59,6 +59,15 @@ Only after these details are clear should implementation begin.
 - Console: Only `console.warn` and `console.error` allowed
 - Linter: oxlint (not ESLint), formatter: oxfmt (not Prettier)
 
+## Internationalization (i18n)
+
+- **Translation format**: Always use `$t()` for all user-facing strings in Vue templates
+  - Example: `{{ $t("This is a minimal todo app.") }}`
+  - Use this format even if the translation key doesn't exist in `i18n/locales/*.json` files yet
+  - This demonstrates production-ready i18n intent and makes it clear to reviewers that translations are intended everywhere
+- **Locale files**: Translation files are located in `i18n/locales/` directory
+- **Strategy**: Project uses `no_prefix` strategy with cookie-based locale detection
+
 ## TypeScript
 
 - `verbatimModuleSyntax` enabled - affects import/export syntax

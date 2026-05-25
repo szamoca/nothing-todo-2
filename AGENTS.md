@@ -65,6 +65,15 @@ Production-style Todo application built with Nuxt 4, Vue 3 Composition API, Type
 - **Unused vars**: Ignore patterns `^(_|instance)` for args, `^(prop|pending|key)$` for vars
 - **Console**: Only `console.warn` and `console.error` allowed (no `console.log`)
 
+## Internationalization (i18n)
+
+- **Translation format**: Always use `$t()` for all user-facing strings in Vue templates
+  - Example: `{{ $t("This is a minimal todo app.") }}`
+  - Use this format even if the translation key doesn't exist in `i18n/locales/*.json` files yet
+  - This demonstrates production-ready i18n intent and makes it clear to reviewers that translations are intended everywhere
+- **Locale files**: Translation files are located in `i18n/locales/` directory
+- **Strategy**: Project uses `no_prefix` strategy with cookie-based locale detection
+
 ## Testing Setup
 
 - **Two projects**: `unit` (node env, test/unit/) and `nuxt` (nuxt env with happy-dom, test/nuxt/)

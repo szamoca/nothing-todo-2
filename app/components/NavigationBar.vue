@@ -36,11 +36,11 @@ async function verifyAuthentication() {
 
 <template>
     <nav class="navbar" :key="refreshKey">
-        <NuxtLink to="/">NOTHING todo</NuxtLink>
+        <NuxtLink to="/">{{ $t("NOTHING todo") }}</NuxtLink>
 
         <ul class="flex-between gap-6">
             <li>
-                <NuxtLink to="/about">About</NuxtLink>
+                <NuxtLink to="/about">{{ $t("About") }}</NuxtLink>
             </li>
             <div v-if="user" class="inline-flex gap-4">
                 <li>{{ user.username }}</li>
@@ -49,13 +49,13 @@ async function verifyAuthentication() {
                         @click="logout"
                         class="bg-amber-50 hover:bg-amber-200 rounded-full border border-cyan-950 px-4"
                     >
-                        Logout
+                        {{ $t("Logout") }}
                     </button>
                 </li>
             </div>
             <div v-else class="inline-flex gap-4">
                 <li>
-                    <NuxtLink to="/login">Login</NuxtLink>
+                    <NuxtLink to="/login">{{ $t("Login") }}</NuxtLink>
                 </li>
             </div>
         </ul>
