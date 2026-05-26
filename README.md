@@ -61,14 +61,11 @@ Build a production-style todo application demonstrating:
 ## Known issues
 
 - Test setup prepared but no tests written yet
-- Top-level `await` in NavigationBar and login page blocks rendering
+- Top-level `await` in login page blocks rendering
 - Direct state mutation in useTodos composable
 - Duplicated auth guard logic across pages
-- NavigationBar tightly coupled to useUser composable
-- Limited component extraction (only NavigationBar exists)
 - SCSS utilities contain unused classes
 - Missing responsive typography scaling
-- Component scoping conflicts in NavigationBar styles
 - No dark mode support
 
 ## Available commands
