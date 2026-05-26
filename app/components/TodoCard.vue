@@ -34,27 +34,25 @@ function handleDelete() {
 		</p>
 
 		<div class="todo-card-actions">
-			<button
+			<Button
 				type="button"
-				:class="todo.completed ? 'btn-ghost' : 'btn-accent'"
-				:disabled="pending"
-				:aria-busy="pending"
+				:variant="todo.completed ? 'ghost' : 'accent'"
+				:loading="pending"
 				:aria-label="`${$t('Toggle completion status for todo')}: ${todo.todo}`"
 				@click="handleToggle"
 			>
 				{{ pending ? $t("Toggling...") : $t("Toggle Completion") }}
-			</button>
+			</Button>
 
-			<button
+			<Button
 				type="button"
-				class="btn-danger"
-				:disabled="pending"
-				:aria-busy="pending"
+				variant="danger"
+				:loading="pending"
 				:aria-label="`${$t('Delete this todo')}: ${todo.todo}`"
 				@click="handleDelete"
 			>
 				{{ pending ? $t("Deleting...") : $t("Delete") }}
-			</button>
+			</Button>
 		</div>
 	</article>
 </template>
@@ -87,7 +85,8 @@ function handleDelete() {
 
 .todo-card-text {
 	font-family: "IBM Plex Mono", monospace;
-	font-size: var(--text-base);
+	font-size: var(--text-2xl);
+	font-weight: 500;
 	line-height: 1.6;
 	color: var(--color-text);
 	margin: 0;
@@ -110,7 +109,7 @@ function handleDelete() {
 	gap: var(--space-3);
 	margin-top: auto;
 
-	button {
+	:deep(.button) {
 		flex: 1;
 		font-size: var(--text-sm);
 		padding: var(--space-3) var(--space-4);

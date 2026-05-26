@@ -82,13 +82,13 @@ async function handleAddTodo() {
 					{{ errorMessage }}
 				</p>
 
-				<button
+				<Button
 					type="submit"
-					class="btn-primary"
-					:disabled="isLoading"
+					variant="primary"
+					:loading="isLoading"
 				>
 					{{ isLoading ? $t("Adding...") : $t("Add Todo") }}
-				</button>
+				</Button>
 			</form>
 		</div>
 	</div>

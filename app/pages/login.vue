@@ -107,13 +107,13 @@ async function handleLogin() {
 					{{ errorMessage }}
 				</p>
 
-				<button
+				<Button
 					type="submit"
-					class="btn-primary"
-					:disabled="isLoading"
+					variant="primary"
+					:loading="isLoading"
 				>
 					{{ isLoading ? $t("Logging in...") : $t("Login") }}
-				</button>
+				</Button>
 			</form>
 		</div>
 	</div>
