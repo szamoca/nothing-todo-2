@@ -113,8 +113,8 @@ const ariaAttributes = computed(() => {
 	color: var(--color-text);
 
 	&:hover:not(:disabled) {
-		background-color: var(--color-surface);
-		border-color: var(--color-text);
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 }
 </style>
