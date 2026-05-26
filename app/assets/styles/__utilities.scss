@@ -38,7 +38,8 @@
 	color: var(--ghost-white);
 
 	&:hover:not(:disabled) {
-		background-color: var(--color-primary-hover);
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 }
 
@@ -49,7 +50,8 @@
 	color: var(--ghost-white);
 
 	&:hover:not(:disabled) {
-		background-color: var(--color-accent-hover);
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
 	}
 }
 
@@ -57,12 +59,11 @@
 	@extend .btn;
 
 	background-color: var(--burnt-peach);
-	color: var(--color-text);
-	border: 1px solid var(--burnt-peach);
+	color: var(--ghost-white);
 
 	&:hover:not(:disabled) {
-		background-color: var(--burnt-peach-dark);
-		border-color: var(--burnt-peach-dark);
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 }
 
@@ -74,8 +75,8 @@
 	color: var(--color-text);
 
 	&:hover:not(:disabled) {
-		background-color: var(--color-surface);
-		border-color: var(--color-text);
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 }
 

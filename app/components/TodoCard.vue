@@ -109,7 +109,7 @@ function handleDelete() {
 	gap: var(--space-3);
 	margin-top: auto;
 
-	:deep(.button) {
+	:deep(.btn) {
 		flex: 1;
 		font-size: var(--text-sm);
 		padding: var(--space-3) var(--space-4);
