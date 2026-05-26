@@ -1,8 +1,18 @@
 <script lang="ts" setup>
-const { user, logout, fetchUser } = useUser();
+interface Props {
+	user: User | null;
+	isLoading?: boolean;
+	onLogout: () => void | Promise<void>;
+}
 
-// Ensure user is loaded on component mount
-await fetchUser();
+const props = withDefaults(defineProps<Props>(), {
+	isLoading: false,
+});
+
+// Handle logout click
+async function handleLogout() {
+	await props.onLogout();
+}
 </script>
 
 <template>
@@ -22,21 +32,25 @@ await fetchUser();
 				</li>
 				<li>
 					<button
-						@click="logout"
+						@click="handleLogout"
 						class="logout-btn auth-link"
+						:disabled="isLoading"
 					>
 						{{ $t("Logout") }}
 					</button>
 				</li>
-				<li class="username">{{ user.username }}</li>
+				<li class="username">
+					{{ isLoading ? $t("Loading...") : user.username }}
+				</li>
 			</template>
 			<template v-else>
 				<li>
 					<NuxtLink
 						to="/login"
 						class="auth-link"
-						>{{ $t("Login") }}</NuxtLink
 					>
+						{{ $t("Login") }}
+					</NuxtLink>
 				</li>
 			</template>
 		</ul>
