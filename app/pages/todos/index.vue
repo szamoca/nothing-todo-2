@@ -1,36 +1,39 @@
 <script lang="ts" setup>
 // Composables
 const { userId, isAuthenticated, isLoading: userLoading } = useUser();
-const { todos, isLoading: todosLoading, error, hasLoaded, fetchTodos, toggleTodo, deleteTodo } = useTodos();
+const { todos, isLoading: todosLoading, error, hasLoaded, loadedUserId, fetchTodos, clearTodos, toggleTodo, deleteTodo } = useTodos();
 
 // Local pending state per tile to prevent race conditions
 const pendingTodoIds = ref<number[]>([]);
 
-// Authentication check and redirect
-onMounted(async () => {
-	// Wait for user loading to complete
-	if (userLoading.value) {
-		await new Promise<void>((resolve) => {
-			const unwatch = watch(userLoading, (loading) => {
-				if (!loading) {
-					unwatch();
-					resolve();
-				}
-			});
-		});
-	}
+// Authentication check and reactive todo loading
+watch(
+	[userLoading, isAuthenticated, userId, loadedUserId],
+	async ([loading, authenticated, currentUserId, currentLoadedUserId]) => {
+		if (loading) {
+			return;
+		}
 
-	// Redirect to login if not authenticated
-	if (!isAuthenticated.value) {
-		await navigateTo("/login");
-		return;
-	}
+		if (!authenticated) {
+			clearTodos();
+			await navigateTo("/login");
+			return;
+		}
 
-	// Fetch todos only if not already loaded and user is authenticated
-	if (!hasLoaded.value && userId.value) {
-		await fetchTodos(userId.value);
-	}
-});
+		if (!currentUserId) {
+			return;
+		}
+
+		if (currentLoadedUserId !== null && currentLoadedUserId !== currentUserId) {
+			clearTodos();
+		}
+
+		if (!hasLoaded.value) {
+			await fetchTodos(currentUserId);
+		}
+	},
+	{ immediate: true },
+);
 
 async function handleToggleTodo(todoId: number) {
 	if (!userId.value || pendingTodoIds.value.includes(todoId)) {

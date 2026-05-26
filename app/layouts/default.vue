@@ -1,10 +1,18 @@
 <script lang="ts" setup>
 const { user, isLoading, fetchUser, logout } = useUser();
 
-// Fetch user on mount (non-blocking)
-onMounted(() => {
-	fetchUser();
-});
+// Watch for token changes to refresh user state
+const token = useCookie("jwt_access_token");
+watch(
+	() => token.value,
+	(newToken) => {
+		if (newToken) {
+			// Token was set (login), fetch user data
+			fetchUser();
+		}
+	},
+	{ immediate: true },
+);
 </script>
 
 <template>

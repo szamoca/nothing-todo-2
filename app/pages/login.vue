@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 import type { FetchError } from "ofetch";
 
-// Fetch random user credentials on page load
-const { data: randomUser } = await useFetch<User>("/api/users/random");
-
-// Shared state for navbar refresh
-const navbarRefreshKey = useState<number>("navbarRefreshKey", () => 0);
+// Fetch random user credentials on page load (non-blocking)
+const { data: randomUser } = useFetch<User>("/api/users/random");
 
 // Form state
 const username = ref("");
@@ -35,10 +32,8 @@ async function handleLogin() {
 		const tokenCookie = useCookie("jwt_access_token");
 		tokenCookie.value = response.accessToken;
 
-		// Trigger navbar refresh
-		navbarRefreshKey.value++;
-
 		// Redirect to home page
+		// Note: Layout watcher will automatically fetch user when token changes
 		await navigateTo("/");
 	} catch (error) {
 		// Display error message without refetching random user

@@ -61,7 +61,6 @@ Build a production-style todo application demonstrating:
 ## Known issues
 
 - Test setup prepared but no tests written yet
-- Top-level `await` in login page blocks rendering
 - Direct state mutation in useTodos composable
 - Duplicated auth guard logic across pages
 - SCSS utilities contain unused classes

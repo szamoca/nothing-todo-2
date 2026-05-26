@@ -29,6 +29,7 @@ export function useTodos() {
 	const total = useState<number>("todos-total", () => 0);
 	const skip = useState<number>("todos-skip", () => 0);
 	const limit = useState<number>("todos-limit", () => 30);
+	const loadedUserId = useState<number | null>("todos-loaded-user-id", () => null);
 
 	/**
 	 * Fetches todos for a specific user from the API.
@@ -65,6 +66,7 @@ export function useTodos() {
 
 			// Mark as loaded after successful fetch
 			hasLoaded.value = true;
+			loadedUserId.value = userId;
 		} catch (err: unknown) {
 			// Set user-friendly error message
 			error.value = "Failed to load todos. Please try again.";
@@ -272,6 +274,7 @@ export function useTodos() {
 		error.value = null;
 		isLoading.value = false;
 		hasLoaded.value = false;
+		loadedUserId.value = null;
 	}
 
 	return {
@@ -279,6 +282,7 @@ export function useTodos() {
 		isLoading: readonly(isLoading),
 		error: readonly(error),
 		hasLoaded: readonly(hasLoaded),
+		loadedUserId: readonly(loadedUserId),
 		total: readonly(total),
 		skip: readonly(skip),
 		limit: readonly(limit),
